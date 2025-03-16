@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const taskRoutes = require("./routes/taskRoute")
 const connectDB = require("./config/db");
 
 //for logging in the console
@@ -26,3 +27,4 @@ app.listen(5000, () => console.log("🚀 Server running on port 5000"));
 // Use Routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/task", taskRoutes);
