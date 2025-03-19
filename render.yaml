@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: express-auth-service
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    branch: main
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        value: your_secret_key
