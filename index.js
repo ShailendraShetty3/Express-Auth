@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoute")
+const categoryRoutes = require("./routes/categoryRoute")
+
 const connectDB = require("./config/db");
 
 //for logging in the console
@@ -28,3 +30,4 @@ app.listen(5000, () => console.log("🚀 Server running on port 5000"));
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/task", taskRoutes);
+app.use("/api/category", categoryRoutes);
