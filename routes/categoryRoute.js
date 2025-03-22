@@ -20,7 +20,7 @@ router.post("/", authMiddleware, async (req, res) => {
 // Get Tasks (Only for Authorized Users)
 router.get("/", authMiddleware, async (req, res) => {
     try {
-      const category = await Category.sort({ createdAt: -1 }); // latest first
+      const category = await Category.find(); // latest first
       res.json(category);
     } catch (err) {
       res.status(500).json({ error: "Server error" });
