@@ -20,12 +20,29 @@ router.post("/", authMiddleware, async (req, res) => {
 // Get Tasks (Only for Authorized Users)
 router.get("/", authMiddleware, async (req, res) => {
     try {
-      const category = await Category.find(); // latest first
-      res.json(category);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const [categories, total] = await Promise.all([
+            Category.find()
+                .sort({ createdAt: -1 })
+                .skip(skip)
+                .limit(limit),
+            Category.countDocuments()
+        ]);
+
+        res.json({
+            total,
+            page,
+            totalPages: Math.ceil(total / limit),
+            categories
+        });
     } catch (err) {
-      res.status(500).json({ error: "Server error" });
+        res.status(500).json({ error: "Server error" });
     }
-  });
+});
+
 
 
   router.get("/:id", authMiddleware, async (req, res) => {
