@@ -4,10 +4,12 @@ services:
     env: node
     plan: free
     buildCommand: npm install
-    startCommand: npm start
+    startCommand: node index.js  # ✅ this avoids npm scripts if you prefer direct command
     branch: main
     envVars:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
         value: your_secret_key
+      - key: MONGO_URI
+        value: your_mongodb_connection_string # add this if you’re connecting to MongoDB Atlas
