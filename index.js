@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoute")
 const categoryRoutes = require("./routes/categoryRoute")
 const postRoutes = require("./routes/postRoute")
+const orderRoutes = require("./routes/orderRoute")
 
 const connectDB = require("./config/db");
 
@@ -33,3 +34,4 @@ app.use("/api/auth", authRoutes);
 app.use("/api/task", taskRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/order", orderRoutes)
