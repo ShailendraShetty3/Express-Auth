@@ -35,16 +35,43 @@ router.post("/", authMiddleware, async (req, res) => {
 });
 
 // Get all posts (with category name populated)
+// router.get("/", async (req, res) => {
+//   try {
+//     const posts = await Post.find()
+//       .populate("category", "name") // populate category name only
+//       .sort({ createdAt: -1 }); // latest first
+//     res.status(200).json(posts);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+//query params
 router.get("/", async (req, res) => {
+  const { category } = req.query;
+
   try {
-    const posts = await Post.find()
-      .populate("category", "name") // populate category name only
-      .sort({ createdAt: -1 }); // latest first
+    let filter = {};
+
+    if (category) {
+      const categoryDoc = await Category.findOne({ name: category });
+      if (!categoryDoc) {
+        return res.status(404).json({ message: "Category not found" });
+      }
+      filter.category = categoryDoc._id;
+    }
+
+    const posts = await Post.find(filter)
+      .populate("category", "name")
+      .sort({ createdAt: -1 });
+
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
+
 
 // Get single post by ID (with category name populated)
 router.get("/:id", async (req, res) => {
